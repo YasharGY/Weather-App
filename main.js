@@ -1,4 +1,4 @@
-const apiKey = '56199078fa6d422c940101623231805';
+const apiKey = '61a37652adcc4c13a88202100231805';
 const weatherContainer = document.querySelector(".weather-container");
 const searchBar = document.querySelector(".search");
 const searchBtn = document.querySelector(".search-btn");
@@ -10,8 +10,8 @@ searchBtn.addEventListener("click", () => {
 
 function getWeather(searchCity) {
     fetch(`https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${searchCity}&aqi=no`)
-        .then((response) => response.json())
-        .then((data) => renderWeather(data));
+        .then((x) => x.json())
+        .then((x) => renderWeather(x));
 }
 
 function renderWeather(weather) {
@@ -25,18 +25,45 @@ function renderWeather(weather) {
     const feelsLike = weather.current.feelslike_c;
     const uv = weather.current.uv;
 
-    const weatherInfo = document.getElementById('weather-info');
-    weatherInfo.innerHTML = `
-        <span>Country: ${country}</span>
-        <span>City: ${city}</span>
-        <span>Local Time: ${date}</span>
-        <span>Temperature: ${tempC}</span>
-        <img src="${icon}" alt="Weather Icon">
-        <span>Wind Speed: ${windKph}</span>
-        <span>Humidity: ${humidity}</span>
-        <span>Feels Like: ${feelsLike}</span>
-        <span>UV: ${uv}</span>
-    `;
-   
-        
+    const weatherInfo = document.querySelector('.weather-info');
+    weatherInfo.innerHTML = '';
+
+    const countrySpan = document.createElement('span');
+    countrySpan.innerText = `Country: ${country}`;
+
+    const citySpan = document.createElement('span');
+    citySpan.innerText = `City: ${city}`;
+
+    const dateSpan = document.createElement('span');
+    const time = date.split(' ')[1]; 
+    dateSpan.innerText = `Local Time: ${time}`;
+
+    const tempCSpan = document.createElement('span');
+    tempCSpan.innerText = `Temperature: ${tempC}`;
+
+    const img = document.createElement('img');
+    img.src = icon;
+    img.alt = 'Weather Icon';
+
+    const windKphSpan = document.createElement('span');
+    windKphSpan.innerText = `Wind Speed: ${windKph}`;
+
+    const humiditySpan = document.createElement('span');
+    humiditySpan.innerText = `Humidity: ${humidity}`;
+
+    const feelsLikeSpan = document.createElement('span');
+    feelsLikeSpan.innerText = `Feels Like: ${feelsLike}`;
+
+    const uvSpan = document.createElement('span');
+    uvSpan.innerText = `UV: ${uv}`;
+
+    weatherInfo.appendChild(countrySpan);
+    weatherInfo.appendChild(citySpan);
+    weatherInfo.appendChild(dateSpan);
+    weatherInfo.appendChild(tempCSpan);
+    weatherInfo.appendChild(img);
+    weatherInfo.appendChild(windKphSpan);
+    weatherInfo.appendChild(humiditySpan);
+    weatherInfo.appendChild(feelsLikeSpan);
+    weatherInfo.appendChild(uvSpan);
 }
